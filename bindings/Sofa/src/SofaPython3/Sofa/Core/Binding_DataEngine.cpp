@@ -22,8 +22,8 @@
 #include <SofaPython3/Sofa/Core/Binding_DataEngine_doc.h>
 
 #include <SofaPython3/PythonFactory.h>
-#include <SofaPython3/PythonEnvironment.h>
-using sofapython3::PythonEnvironment;
+// #include <SofaPython3/PythonEnvironment.h>
+// using sofapython3::PythonEnvironment;
 
 #include <pybind11/pybind11.h>
 
@@ -42,7 +42,7 @@ using sofa::core::objectmodel::DDGNode;
 
 std::string DataEngine_Trampoline::getClassName() const
 {
-    PythonEnvironment::gil acquire {"getClassName"};
+    // PythonEnvironment::gil acquire {"getClassName"};
 
     // Get the actual class name from python.
     return py::str(py::cast(this).get_type().attr("__name__"));
@@ -50,23 +50,23 @@ std::string DataEngine_Trampoline::getClassName() const
 
 void DataEngine_Trampoline::init()
 {
-    PythonEnvironment::executePython(this, [this](){
-        PYBIND11_OVERLOAD(void, DataEngine, init, );
-    });
+    // PythonEnvironment::executePython(this, [this](){
+    //     PYBIND11_OVERLOAD(void, DataEngine, init, );
+    // });
 }
 
 void DataEngine_Trampoline::doUpdate()
 {
-    PythonEnvironment::executePython(this, [this](){
-        py::object self = py::cast(this);
-        if (py::hasattr(self, "update"))
-        {
-            py::object fct = self.attr("update");
-            fct();
-            return;
-        }
-        throw py::type_error(this->getName() + " has no update() method.");
-    });
+    // PythonEnvironment::executePython(this, [this](){
+    //     py::object self = py::cast(this);
+    //     if (py::hasattr(self, "update"))
+    //     {
+    //         py::object fct = self.attr("update");
+    //         fct();
+    //         return;
+    //     }
+    //     throw py::type_error(this->getName() + " has no update() method.");
+    // });
 }
 
 void moduleAddDataEngine(pybind11::module &m)

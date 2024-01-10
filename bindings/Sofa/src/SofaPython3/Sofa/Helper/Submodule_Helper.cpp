@@ -21,7 +21,7 @@
 #include <sofa/core/init.h>
 #include <sofa/helper/init.h>
 #include <sofa/helper/logging/Messaging.h>
-#include <SofaPython3/PythonEnvironment.h>
+// #include <SofaPython3/PythonEnvironment.h>
 #include <sofa/core/objectmodel/Base.h>
 #include <SofaPython3/Sofa/Helper/System/Submodule_System.h>
 #include <SofaPython3/Sofa/Helper/Binding_MessageHandler.h>
@@ -53,8 +53,8 @@ static void parse_emitter_message_then(py::args args, const Action& action) {
     {
         /// no emitter
         std::string message = py::cast<std::string>(args[0]);
-        action(ComponentInfo::SPtr(new ComponentInfo(s_emitter)), message.c_str(),
-                                   PythonEnvironment::getPythonCallingPointAsFileInfo());
+        // action(ComponentInfo::SPtr(new ComponentInfo(s_emitter)), message.c_str(),
+        //                            PythonEnvironment::getPythonCallingPointAsFileInfo());
     } else if( argSize == 2 ) {
         /// SOURCE, "Message"
         py_emitter = args[0];
@@ -62,12 +62,12 @@ static void parse_emitter_message_then(py::args args, const Action& action) {
 
         if( py::isinstance<py::str>(py_emitter) )
         {
-            action(ComponentInfo::SPtr(new ComponentInfo(py::cast<std::string>(py_emitter))),
-                   message.c_str(), PythonEnvironment::getPythonCallingPointAsFileInfo());
+            // action(ComponentInfo::SPtr(new ComponentInfo(py::cast<std::string>(py_emitter))),
+            //        message.c_str(), PythonEnvironment::getPythonCallingPointAsFileInfo());
         }else if (py::isinstance<Base>(py_emitter))
         {
-            action(ComponentInfo::SPtr(new SofaComponentInfo(py::cast<Base*>(py_emitter))),
-                   message.c_str(), PythonEnvironment::getPythonCallingPointAsFileInfo());
+            // action(ComponentInfo::SPtr(new SofaComponentInfo(py::cast<Base*>(py_emitter))),
+            //        message.c_str(), PythonEnvironment::getPythonCallingPointAsFileInfo());
         }else
         {
             throw py::type_error("The first parameter must be a string or a Sofa.Core.Base object");

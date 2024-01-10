@@ -52,8 +52,8 @@ using sofa::core::ObjectFactory;
 #include <SofaPython3/PythonFactory.h>
 using sofapython3::PythonFactory;
 
-#include <SofaPython3/PythonEnvironment.h>
-using sofapython3::PythonEnvironment;
+// #include <SofaPython3/PythonEnvironment.h>
+// using sofapython3::PythonEnvironment;
 
 #include <SofaPython3/Sofa/Core/Binding_Node.h>
 #include <SofaPython3/Sofa/Core/Binding_Node_doc.h>
@@ -201,13 +201,13 @@ py::object hasObject(Node &n, const std::string &name)
 
 py::object getObject(Node &n, const std::string &name, const py::kwargs& kwargs)
 {
-    if(kwargs.size()!=0)
-    {
-        msg_deprecated(&n) << "Calling the method getObject() with extra arguments is not supported anymore."
-                           << "To remove this message please refer to the documentation of the getObject method"
-                           << msgendl
-                           << PythonEnvironment::getPythonCallingPointString() ;
-    }
+    // if(kwargs.size()!=0)
+    // {
+    //     msg_deprecated(&n) << "Calling the method getObject() with extra arguments is not supported anymore."
+    //                        << "To remove this message please refer to the documentation of the getObject method"
+    //                        << msgendl
+    //                        << PythonEnvironment::getPythonCallingPointString() ;
+    // }
 
     BaseObject *object = n.getObject(name);
     if (object)
@@ -262,9 +262,9 @@ py::object addObjectKwargs(Node* self, const std::string& type, const py::kwargs
     }
 
     // Associates the emission location to the created object.
-    auto finfo = PythonEnvironment::getPythonCallingPointAsFileInfo();
-    object->setInstanciationSourceFileName(finfo->filename);
-    object->setInstanciationSourceFilePos(finfo->line);
+    // auto finfo = PythonEnvironment::getPythonCallingPointAsFileInfo();
+    // object->setInstanciationSourceFileName(finfo->filename);
+    // object->setInstanciationSourceFilePos(finfo->line);
 
     if (name.empty())
     {
@@ -332,9 +332,9 @@ py::object addKwargs(Node* self, const py::object& callable, const py::kwargs& k
     }
 
     // Set the creation point
-    auto finfo = PythonEnvironment::getPythonCallingPointAsFileInfo();
-    base->setInstanciationSourceFileName(finfo->filename);
-    base->setInstanciationSourceFilePos(finfo->line);
+    // auto finfo = PythonEnvironment::getPythonCallingPointAsFileInfo();
+    // base->setInstanciationSourceFileName(finfo->filename);
+    // base->setInstanciationSourceFilePos(finfo->line);
 
     for(auto a : kwargs)
     {
@@ -351,10 +351,10 @@ py::object addKwargs(Node* self, const py::object& callable, const py::kwargs& k
 /// a warning for old scenes.
 py::object createObject(Node* self, const std::string& type, const py::kwargs& kwargs)
 {
-    msg_deprecated(self) << "The Node.createObject method is deprecated since sofa 19.06." << msgendl
-                         << "To remove this warning message, use 'addObject' instead of 'createObject'." <<  msgendl
-                         << msgendl
-                         << PythonEnvironment::getPythonCallingPointString() ;
+    // msg_deprecated(self) << "The Node.createObject method is deprecated since sofa 19.06." << msgendl
+    //                      << "To remove this warning message, use 'addObject' instead of 'createObject'." <<  msgendl
+    //                      << msgendl
+    //                      << PythonEnvironment::getPythonCallingPointString() ;
     return addObjectKwargs(self, type,kwargs);
 }
 
@@ -365,9 +365,9 @@ py::object addChildKwargs(Node* self, const std::string& name, const py::kwargs&
     BaseObjectDescription desc (name.c_str());
     fillBaseObjectdescription(desc,kwargs);
     auto node=simpleapi::createChild(self, desc);
-    auto finfo = PythonEnvironment::getPythonCallingPointAsFileInfo();
-    node->setInstanciationSourceFileName(finfo->filename);
-    node->setInstanciationSourceFilePos(finfo->line);
+    // auto finfo = PythonEnvironment::getPythonCallingPointAsFileInfo();
+    // node->setInstanciationSourceFileName(finfo->filename);
+    // node->setInstanciationSourceFilePos(finfo->line);
 
     checkParamUsage(desc, node.get());
 
@@ -392,10 +392,10 @@ Node* addChild(Node* self, Node* child)
 /// deprecated, use addChild instead. Keeping for compatibility reasons
 py::object createChild(Node* self, const std::string& name, const py::kwargs& kwargs)
 {
-    msg_deprecated(self) << "The Node.createChild method is deprecated since sofa 19.06." << msgendl
-                         << "To remove this warning message, use 'addChild' instead of 'createChild'." << msgendl
-                         << msgendl
-                         << PythonEnvironment::getPythonCallingPointString() ;
+    // msg_deprecated(self) << "The Node.createChild method is deprecated since sofa 19.06." << msgendl
+    //                      << "To remove this warning message, use 'addChild' instead of 'createChild'." << msgendl
+    //                      << msgendl
+    //                      << PythonEnvironment::getPythonCallingPointString() ;
     return addChildKwargs(self, name, kwargs);
 }
 

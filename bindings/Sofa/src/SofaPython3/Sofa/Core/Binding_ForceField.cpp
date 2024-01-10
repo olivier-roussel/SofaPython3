@@ -33,8 +33,8 @@
 
 #include <pybind11/eigen.h>
 
-#include <SofaPython3/PythonEnvironment.h>
-using sofapython3::PythonEnvironment;
+// #include <SofaPython3/PythonEnvironment.h>
+// using sofapython3::PythonEnvironment;
 
 /// Makes an alias for the pybind11 namespace to increase readability.
 namespace py { using namespace pybind11; }
@@ -65,7 +65,7 @@ namespace sofapython3
     template<class TDOFType>
     std::string ForceField_Trampoline<TDOFType>::getClassName() const
     {
-        PythonEnvironment::gil acquire {"getClassName"};
+        // PythonEnvironment::gil acquire {"getClassName"};
 
         // Get the actual class name from python.
         return py::str(py::cast(this).get_type().attr("__name__"));
@@ -76,7 +76,7 @@ namespace sofapython3
     {
         ForceField<TDOFType>::init();
 
-        PythonEnvironment::gil acquire;
+        // PythonEnvironment::gil acquire;
 
         if (!mstate.get())
             mstate.set(dynamic_cast< MechanicalState<DataTypes>* >(getContext()->getMechanicalState()));
@@ -90,7 +90,7 @@ namespace sofapython3
     template<class TDOFType>
     void ForceField_Trampoline<TDOFType>::addForce(const MechanicalParams* mparams,  DataVecDeriv& f, const DataVecCoord& x, const DataVecDeriv& v)
     {
-        PythonEnvironment::gil acquire;
+        // PythonEnvironment::gil acquire;
 
         // pass bFactor, kFactor, energy
         py::dict mp = py::dict("time"_a=getContext()->getTime(),
@@ -105,7 +105,7 @@ namespace sofapython3
     template<class TDOFType>
     void ForceField_Trampoline<TDOFType>::addDForce(const MechanicalParams* mparams, DataVecDeriv& df, const DataVecDeriv& dx )
     {
-        PythonEnvironment::gil acquire;
+        // PythonEnvironment::gil acquire;
 
         // pass bFactor, kFactor, energy
         py::dict mp = py::dict("time"_a=getContext()->getTime(),
@@ -121,7 +121,7 @@ namespace sofapython3
     template<class TDOFType>
     py::object ForceField_Trampoline<TDOFType>::_addKToMatrix(const MechanicalParams* mparams, int nIndices, int nDofs)
     {
-        PythonEnvironment::gil acquire;
+        // PythonEnvironment::gil acquire;
 
         py::dict mp = py::dict("time"_a=getContext()->getTime(),
                                "mFactor"_a=mparams->mFactor(),

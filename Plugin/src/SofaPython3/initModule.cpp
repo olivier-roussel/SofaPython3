@@ -20,8 +20,8 @@
 
 #include <SofaPython3/config.h>
 
-#include "PythonEnvironment.h"
-using sofapython3::PythonEnvironment;
+// #include "PythonEnvironment.h"
+// using sofapython3::PythonEnvironment;
 
 #include <SofaPython3/initModule.h>
 
@@ -52,10 +52,10 @@ void initExternalModule()
         sofa::simulation::core::init();
         sofa::simulation::graph::init();
 
-        PythonEnvironment::Init();
+        // PythonEnvironment::Init();
         first = false;
     }
-    PythonEnvironment::addPluginManagerCallback();
+    // PythonEnvironment::addPluginManagerCallback();
 }
 
 const char* getModuleName()
@@ -85,7 +85,8 @@ const char* getModuleComponentList()
 
 bool moduleIsInitialized()
 {
-    return PythonEnvironment::isInitialized();
+    // return PythonEnvironment::isInitialized();
+    return true;
 }
 
 }

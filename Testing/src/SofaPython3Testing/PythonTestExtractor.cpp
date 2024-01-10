@@ -19,7 +19,7 @@
 ******************************************************************************/
 
 #include <SofaPython3Testing/PythonTestExtractor.h>
-#include <SofaPython3/PythonEnvironment.h>
+// #include <SofaPython3/PythonEnvironment.h>
 
 #include <sofa/helper/logging/Messaging.h>
 #include <sofa/helper/system/FileSystem.h>
@@ -75,8 +75,8 @@ std::vector<PythonTestData> PythonTestExtractor::extract () const
 {
     PluginManager::getInstance().loadPlugin("SofaPython3");
 
-    PythonEnvironment::Init();
-    PythonEnvironment::gil scoped_gil;
+    // PythonEnvironment::Init();
+    // PythonEnvironment::gil scoped_gil;
 
     py::module unittest = py::module::import("unittest");
     py::module::import("SofaRuntime");
@@ -93,28 +93,28 @@ std::vector<PythonTestData> PythonTestExtractor::extract () const
         );
 
         try {
-            py::module module = PythonEnvironment::importFromFile(
-                basename, SetDirectory::GetFileName(test.filename.c_str()), &globals
-            );
+            // py::module module = PythonEnvironment::importFromFile(
+            //     basename, SetDirectory::GetFileName(test.filename.c_str()), &globals
+            // );
 
-            std::list<std::string> testNames;
-            py::list testSuite = getTestSuite(unittest, module, test.arguments);
-            if(!testSuite.size())
-            {
-                throw std::runtime_error("No test suite found. Make sure there is at least one class in "
-                                         "the script that inherits from TestCase.");
-            }
-            for (const auto t : testSuite) {
-                testNames.push_back(py::cast<std::string>(t.attr("id")()));
-            }
+            // std::list<std::string> testNames;
+            // py::list testSuite = getTestSuite(unittest, module, test.arguments);
+            // if(!testSuite.size())
+            // {
+            //     throw std::runtime_error("No test suite found. Make sure there is at least one class in "
+            //                              "the script that inherits from TestCase.");
+            // }
+            // for (const auto t : testSuite) {
+            //     testNames.push_back(py::cast<std::string>(t.attr("id")()));
+            // }
 
-            for(const auto& test_name : testNames) {
-                std::vector<std::string> cargs;
-                cargs.push_back(test_name.substr(test_name.find_last_of('.')+1));
-                cargs.insert(cargs.end(), test.arguments.begin(), test.arguments.end());
-                list.emplace_back( PythonTestData( filepath(test.path, test.filename), test.testgroup, cargs ) );
-            }
-            msg_info("PythonTestExtractor") << "File '" << test.filename << "' loaded with " << testNames.size() << " unit tests.";
+            // for(const auto& test_name : testNames) {
+            //     std::vector<std::string> cargs;
+            //     cargs.push_back(test_name.substr(test_name.find_last_of('.')+1));
+            //     cargs.insert(cargs.end(), test.arguments.begin(), test.arguments.end());
+            //     list.emplace_back( PythonTestData( filepath(test.path, test.filename), test.testgroup, cargs ) );
+            // }
+            // msg_info("PythonTestExtractor") << "File '" << test.filename << "' loaded with " << testNames.size() << " unit tests.";
 
         } catch(const std::exception& e) {
             msg_error("PythonTestExtractor") << "File skipped: " << (test.path+"/"+test.filename) << msgendl

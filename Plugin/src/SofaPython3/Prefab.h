@@ -23,11 +23,12 @@
 #include <sofa/core/objectmodel/DataCallback.h>
 
 #include <sofa/helper/system/FileMonitor.h>
-#include <SofaPython3/PythonEnvironment.h>
+// #include <SofaPython3/PythonEnvironment.h>
+#include <SofaPython3/config.h>
+#include <pybind11/eval.h>
 
 namespace sofa::core::objectmodel
 {
-
 class SOFAPYTHON3_API BasePrefab : public sofa::simulation::graph::DAGNode
 {
 public:

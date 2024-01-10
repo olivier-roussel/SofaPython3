@@ -21,7 +21,7 @@
 #include <SofaPython3/Prefab.h>
 #include <SofaPython3/DataHelper.h>
 #include <SofaPython3/PythonFactory.h>
-#include <SofaPython3/PythonEnvironment.h>
+// #include <SofaPython3/PythonEnvironment.h>
 
 #include <sofa/simulation/DeleteVisitor.h>
 #include <sofa/helper/system/FileMonitor.h>
@@ -50,7 +50,7 @@ void Prefab::init()
 
 void PrefabFileEventListener::fileHasChanged(const std::string &filename)
 {
-    PythonEnvironment::gil acquire ;
+    // PythonEnvironment::gil acquire ;
     py::dict local;
     local["filename"] = filename;
     py::eval("onReimpAFile(filename)", py::globals(), local);

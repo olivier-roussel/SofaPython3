@@ -38,7 +38,7 @@ using sofa::core::objectmodel::MouseEvent;
 using sofa::core::objectmodel::ScriptEvent;
 using sofa::core::objectmodel::Event;
 
-#include <SofaPython3/PythonEnvironment.h>
+// #include <SofaPython3/PythonEnvironment.h>
 #include <SofaPython3/LinkPath.h>
 
 #include <sofa/core/topology/Topology.h>
@@ -344,11 +344,11 @@ void PythonFactory::fromPython(BaseData* d, const py::object& o)
         std::string s = py::cast<std::string>(o);
         if(s.size() > 1 && s[0] != '@')
         {
-            msg_deprecated(d->getOwner()) << "Data field '" << d->getName() << "' is initialized from a string." << msgendl
-                                          << " This behavior was allowed with SofaPython2 but have very poor performance so it is now  "
-                                              << "deprecated with SofaPython3. Please fix your scene (as this behavior will be removed)." << msgendl
-                                          << msgendl
-                                          << PythonEnvironment::getPythonCallingPointString();
+            // msg_deprecated(d->getOwner()) << "Data field '" << d->getName() << "' is initialized from a string." << msgendl
+            //                               << " This behavior was allowed with SofaPython2 but have very poor performance so it is now  "
+            //                                   << "deprecated with SofaPython3. Please fix your scene (as this behavior will be removed)." << msgendl
+            //                               << msgendl
+            //                               << PythonEnvironment::getPythonCallingPointString();
         }
         d->read( s );
         return;

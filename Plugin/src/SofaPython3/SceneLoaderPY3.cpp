@@ -25,7 +25,7 @@
 #include <sofa/simulation/graph/DAGNode.h>
 using sofa::simulation::graph::DAGNode;
 
-#include <SofaPython3/PythonEnvironment.h>
+// #include <SofaPython3/PythonEnvironment.h>
 #include <SofaPython3/SceneLoaderPY3.h>
 #include <SofaPython3/PythonFactory.h>
 
@@ -104,8 +104,8 @@ void SceneLoaderPY3::loadSceneWithArguments(const char *filename,
                                             const std::vector<std::string>& arguments,
                                             Node::SPtr root_out)
 {
-    PythonEnvironment::setArguments(SetDirectory::GetFileName(filename).c_str(), arguments);
-    PythonEnvironment::gil lock;
+    // PythonEnvironment::setArguments(SetDirectory::GetFileName(filename).c_str(), arguments);
+    // PythonEnvironment::gil lock;
 
     try{
         py::module::import("Sofa.Core");
@@ -114,19 +114,19 @@ void SceneLoaderPY3::loadSceneWithArguments(const char *filename,
 
         SetDirectory localDir(filename);
         std::string basename = SetDirectory::GetFileNameWithoutExtension(SetDirectory::GetFileName(filename).c_str());
-        module = PythonEnvironment::importFromFile(basename, SetDirectory::GetFileName(filename), &globals);
+        // module = PythonEnvironment::importFromFile(basename, SetDirectory::GetFileName(filename), &globals);
 
-        if(!py::hasattr(module, "createScene"))
-        {
-            msg_error("SofaPython3") << "Missing createScene function";
-            return ;
-        }
+        // if(!py::hasattr(module, "createScene"))
+        // {
+        //     msg_error("SofaPython3") << "Missing createScene function";
+        //     return ;
+        // }
 
-        py::object createScene = module.attr("createScene");
-        createScene( PythonFactory::toPython(root_out.get()) );
+        // py::object createScene = module.attr("createScene");
+        // createScene( PythonFactory::toPython(root_out.get()) );
 
-        root_out->setInstanciationSourceFileName(filename);
-        root_out->setInstanciationSourceFilePos(0);
+        // root_out->setInstanciationSourceFileName(filename);
+        // root_out->setInstanciationSourceFilePos(0);
     }catch(py::error_already_set& e)
     {
         msg_error() << "Unable to completely load the scene from file '"<< filename << "'." << msgendl

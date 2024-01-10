@@ -26,7 +26,7 @@
 #include <SofaPython3/Sofa/Core/Binding_Controller_doc.h>
 
 #include <SofaPython3/PythonFactory.h>
-#include <SofaPython3/PythonEnvironment.h>
+// #include <SofaPython3/PythonEnvironment.h>
 
 SOFAPYTHON3_BIND_ATTRIBUTE_ERROR()
 
@@ -40,23 +40,23 @@ using sofa::core::objectmodel::BaseObject;
 
 std::string Controller_Trampoline::getClassName() const
 {
-    PythonEnvironment::gil acquire {"getClassName"};
+    // PythonEnvironment::gil acquire {"getClassName"};
     // Get the actual class name from python.
     return py::str(py::cast(this).get_type().attr("__name__"));
 }
 
 void Controller_Trampoline::init()
 {
-    PythonEnvironment::executePython(this, [this](){
-        PYBIND11_OVERLOAD(void, Controller, init, );
-    });
+    // PythonEnvironment::executePython(this, [this](){
+    //     PYBIND11_OVERLOAD(void, Controller, init, );
+    // });
 }
 
 void Controller_Trampoline::reinit()
 {
-    PythonEnvironment::executePython(this, [this](){
-        PYBIND11_OVERLOAD(void, Controller, reinit, );
-    });
+    // PythonEnvironment::executePython(this, [this](){
+    //     PYBIND11_OVERLOAD(void, Controller, reinit, );
+    // });
 }
 
 /// If a method named "methodName" exists in the python controller,
@@ -80,22 +80,22 @@ void Controller_Trampoline::callScriptMethod(
 
 void Controller_Trampoline::handleEvent(Event* event)
 {
-    PythonEnvironment::executePython(this, [this,event](){
-        py::object self = py::cast(this);
-        std::string name = std::string("on")+event->getClassName();
-        /// Is there a method with this name in the class ?
-        if( py::hasattr(self, name.c_str()) )
-        {
-            py::object fct = self.attr(name.c_str());
-            if (PyCallable_Check(fct.ptr())) {
-                callScriptMethod(self, event, name);
-                return;
-            }
-        }
+    // PythonEnvironment::executePython(this, [this,event](){
+    //     py::object self = py::cast(this);
+    //     std::string name = std::string("on")+event->getClassName();
+    //     /// Is there a method with this name in the class ?
+    //     if( py::hasattr(self, name.c_str()) )
+    //     {
+    //         py::object fct = self.attr(name.c_str());
+    //         if (PyCallable_Check(fct.ptr())) {
+    //             callScriptMethod(self, event, name);
+    //             return;
+    //         }
+    //     }
 
-        /// Is the fallback method available.
-        callScriptMethod(self, event, "onEvent");
-    });
+    //     /// Is the fallback method available.
+    //     callScriptMethod(self, event, "onEvent");
+    // });
 }
 
 void moduleAddController(py::module &m) {

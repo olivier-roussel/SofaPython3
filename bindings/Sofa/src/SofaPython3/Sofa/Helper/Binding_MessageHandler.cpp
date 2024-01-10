@@ -23,11 +23,11 @@
 #include <SofaPython3/Sofa/Helper/Binding_MessageHandler.h>
 #include <SofaPython3/PythonFactory.h>
 
-#include <SofaPython3/PythonEnvironment.h>
+// #include <SofaPython3/PythonEnvironment.h>
 
 #include <sofa/core/objectmodel/Base.h>
 
-using sofapython3::PythonEnvironment;
+// using sofapython3::PythonEnvironment;
 using sofa::helper::logging::Message;
 using sofa::helper::logging::MessageHandler;
 using sofa::core::objectmodel::Base;
@@ -41,7 +41,7 @@ namespace sofapython3
 
     void MessageHandler_Trampoline::process(Message& m)
     {
-        PythonEnvironment::gil acquire {"MessageHandler"};
+        // PythonEnvironment::gil acquire {"MessageHandler"};
         py::object self = py::cast(this);
 
         if( py::hasattr(self, "process") )
