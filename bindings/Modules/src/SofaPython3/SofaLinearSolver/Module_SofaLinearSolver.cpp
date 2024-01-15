@@ -18,6 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
+#include <iostream>
 #include <pybind11/pybind11.h>
 #include <SofaPython3/SofaLinearSolver/Binding_LinearSolver.h>
 
@@ -26,6 +27,10 @@ namespace sofapython3
 
 PYBIND11_MODULE(SofaLinearSolver, m)
 {
+    std::cout <<  "PYBIND11_MODULE SofaLinearSolver : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE SofaLinearSolver Initializing with python version " << pythonVersion << std::endl;
+  
     moduleAddLinearSolver(m);
 }
 

@@ -18,6 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
+#include <iostream>
 #include <pybind11/eval.h>
 namespace py = pybind11;
 
@@ -130,6 +131,10 @@ PYBIND11_MODULE(SofaRuntime, m) {
                    SofaRuntime.importPlugin("Sofa.Component.LinearSolver")
 
               )doc";
+
+    std::cout <<  "PYBIND11_MODULE SofaRuntime : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE SofaRuntime Initializing with python version " << pythonVersion << std::endl;
 
     // These are needed to force the dynamic loading of module dependencies (found in CMakeLists.txt)
     sofa::core::init();

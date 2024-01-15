@@ -19,6 +19,17 @@ SP3_add_python_package(
         SofaRuntime
 )
 
+
+get_target_property(SP3_PLUGIN_ALL_LIBS SofaPython3::Plugin LINK_LIBRARIES)
+get_target_property(SP3_PLUGIN_INTERFACE_LIBS SofaPython3::Plugin INTERFACE_LINK_LIBRARIES)
+get_target_property(SP3_BINDINGS_SOFA_CORE_ALL_LIBS  SofaPython3::Bindings.Sofa.Core LINK_LIBRARIES)
+get_target_property(SP3_BINDINGS_SOFA_CORE_INTERFACE_LIBS  SofaPython3::Bindings.Sofa.Core INTERFACE_LINK_LIBRARIES)
+
+message("**************** SP3_PLUGIN_ALL_LIBS=${SP3_PLUGIN_ALL_LIBS}")
+message("**************** SP3_PLUGIN_INTERFACE_LIBS=${SP3_PLUGIN_INTERFACE_LIBS}")
+message("**************** SP3_BINDINGS_SOFA_CORE_ALL_LIBS=${SP3_BINDINGS_SOFA_CORE_ALL_LIBS}")
+message("**************** SP3_BINDINGS_SOFA_CORE_INTERFACE_LIBS=${SP3_BINDINGS_SOFA_CORE_INTERFACE_LIBS}")
+
 SP3_add_python_module(
         TARGET       ${PROJECT_NAME}
         MODULE       SofaRuntime

@@ -18,6 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
+#include <iostream>
 #include <sofa/core/init.h>
 #include <sofa/helper/init.h>
 #include <sofa/helper/logging/Messaging.h>
@@ -107,6 +108,10 @@ static void parse_emitter_message_then(py::args args, const Action& action) {
 /// The first parameter must be named the same as the module file to load.
 PYBIND11_MODULE(Helper, helper)
 {
+    std::cout <<  "PYBIND11_MODULE Helper : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE Helper Initializing with python version " << pythonVersion << std::endl;
+
     // These are needed to force the dynamic loading of module dependencies (found in CMakeLists.txt)
     sofa::core::init();
     sofa::helper::init();

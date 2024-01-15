@@ -18,6 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
+#include <iostream>
 #include <sofa/core/init.h>
 #include <sofa/defaulttype/init.h>
 
@@ -27,6 +28,10 @@ namespace sofapython3 {
 /// The first parameter must be named the same as the module file to load.
 PYBIND11_MODULE(Types, types)
 {
+    std::cout <<  "PYBIND11_MODULE Types : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE Types Initializing with python version " << pythonVersion << std::endl;
+    
     // These are needed to force the dynamic loading of module dependencies (found in CMakeLists.txt)
     sofa::core::init();
     sofa::defaulttype::init();

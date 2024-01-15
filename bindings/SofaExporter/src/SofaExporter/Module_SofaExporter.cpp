@@ -18,6 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
+#include <iostream>
 #include <pybind11/eval.h>
 namespace py = pybind11;
 
@@ -28,6 +29,10 @@ namespace sofapython3
 {
 
 PYBIND11_MODULE(SofaExporter, m) {
+    std::cout <<  "PYBIND11_MODULE SofaExporter : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE SofaExporter Initializing with python version " << pythonVersion << std::endl;
+
     m.doc() = R"doc(
               Binding for the SofaExporter plugin
               -----------------------------------

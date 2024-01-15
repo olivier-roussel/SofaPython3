@@ -94,6 +94,10 @@ namespace sofapython3
 {
     void init()
     {
+        std::cout <<  "sofapython3::plugin::initModule::init() : Entering.... " << std::endl;
+        std::string pythonVersion = Py_GetVersion();
+        std::cout <<  "sofapython3::plugin::initModule::init() : Initializing with python version " << pythonVersion << std::endl;
+
         initExternalModule();
     }
 }

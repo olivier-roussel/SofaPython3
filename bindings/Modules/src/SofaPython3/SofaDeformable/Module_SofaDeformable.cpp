@@ -18,6 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
+#include <iostream>
 #include <pybind11/pybind11.h>
 #include <SofaPython3/SofaDeformable/Binding_LinearSpring.h>
 #include <SofaPython3/SofaDeformable/Binding_SpringForceField.h>
@@ -30,6 +31,10 @@ namespace sofapython3
 
 PYBIND11_MODULE(SofaDeformable, m)
 {
+    std::cout <<  "PYBIND11_MODULE SofaDeformable : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE SofaDeformable Initializing with python version " << pythonVersion << std::endl;
+    
     moduleAddLinearSpring(m);
     moduleAddSpringForceField(m);
 }

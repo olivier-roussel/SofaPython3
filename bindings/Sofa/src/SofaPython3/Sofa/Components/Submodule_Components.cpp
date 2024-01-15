@@ -57,6 +57,10 @@ public:
 
 PYBIND11_MODULE(Components, m)
 {
+    std::cout <<  "PYBIND11_MODULE Components : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE Components Initializing with python version " << pythonVersion << std::endl;
+
     // These are needed to force the dynamic loading of module dependencies (found in CMakeLists.txt)
     sofa::core::init();
     sofa::helper::init();

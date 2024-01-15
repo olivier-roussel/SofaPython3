@@ -18,6 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
+#include <iostream>
 #include <pybind11/pybind11.h>
 
 #include <sofa/core/init.h>
@@ -51,6 +52,9 @@ namespace py = pybind11;
 namespace sofapython3 {
 /// The first parameter must be named the same as the module file to load.
 PYBIND11_MODULE(Gui, m) {
+    std::cout <<  "PYBIND11_MODULE Gui : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE Gui Initializing with python version " << pythonVersion << std::endl;
 
     m.doc() = R"doc(
             Sofa.Gui

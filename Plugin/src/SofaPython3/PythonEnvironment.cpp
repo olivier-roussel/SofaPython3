@@ -170,6 +170,7 @@ SOFAPYTHON3_API py::module PythonEnvironment::importFromFile(const std::string& 
 
 void PythonEnvironment::Init()
 {
+    std::cout << "---------- Py_GetVersion()" << std::endl;
     std::string pythonVersion = Py_GetVersion();
     msg_info("SofaPython3") << "Initializing with python version " << pythonVersion;
 
@@ -192,10 +193,11 @@ void PythonEnvironment::Init()
         // is initialized.
         static const PyThreadState* init = PyEval_SaveThread(); (void) init;
     }
-
+    std::cout << "---------- PyEval_InitThreads()" << std::endl;
     PyEval_InitThreads();
 
     // Required for sys.path, used in addPythonModulePath().
+    std::cout << "---------- executePython import sys" << std::endl;
     executePython([]{ PyRun_SimpleString("import sys");});
 
     // Force C locale.
@@ -218,6 +220,7 @@ void PythonEnvironment::Init()
     // Add the paths to the plugins' python modules to sys.path.  Those paths
     // are read from all the files in 'etc/sofa/python.d'
     std::string confDir = Utils::getSofaPathPrefix() + "/etc/sofa/python.d";
+    std::cout << "---------- addPythonModulePathsFromConfigFile" << std::endl;
     if (FileSystem::exists(confDir))
     {
         std::vector<std::string> files;
@@ -252,6 +255,7 @@ void PythonEnvironment::Init()
     
     sofa::helper::system::FileRepository pluginPathsRepository(envVarName.c_str());
     const auto& pluginPaths = pluginPathsRepository.getPaths();
+    std::cout << "---------- addPythonModulePath" << std::endl;
     for (auto pluginPath : pluginPaths)
     {
         std::string cleanPath = FileSystem::cleanPath(pluginPath);
@@ -259,22 +263,28 @@ void PythonEnvironment::Init()
     }
 
     // Add sites-packages wrt the plugin
+    std::cout << "---------- addPythonModulePathsFromPlugin" << std::endl;
     addPythonModulePathsFromPlugin("SofaPython3");
 
     // Lastly, we (try to) add modules from the root of SOFA
+    std::cout << "---------- addPythonModulePathsFromDirectory" << std::endl;
     addPythonModulePathsFromDirectory( Utils::getSofaPathPrefix() );
 
+    std::cout << "---------- executePython import SofaRuntime" << std::endl;
     executePython([]{ PyRun_SimpleString("import SofaRuntime");});
 
     // python livecoding related
+    std::cout << "---------- executePython  from Sofa.livecoding import onReimpAFile" << std::endl;
     executePython([]{ PyRun_SimpleString("from Sofa.livecoding import onReimpAFile");});
 
     // general sofa-python stuff
 
     // python modules are automatically reloaded at each scene loading
+    std::cout << "---------- setAutomaticModuleReload" << std::endl;
     setAutomaticModuleReload( true );
 
     // Initialize pluginLibraryPath by reading PluginManager's map
+    std::cout << "---------- Initialize pluginLibraryPath" << std::endl;
     std::map<std::string, Plugin>& map = PluginManager::getInstance().getPluginMap();
     for( const auto& elem : map)
     {

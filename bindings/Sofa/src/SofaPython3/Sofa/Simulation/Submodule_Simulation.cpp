@@ -18,6 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
+#include <iostream>
 #include <pybind11/pybind11.h>
 
 #include <sofa/simulation/Simulation.h>
@@ -51,6 +52,10 @@ namespace sofapython3
 
 PYBIND11_MODULE(Simulation, simulation)
 {
+    std::cout <<  "PYBIND11_MODULE Simulation : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE Simulation Initializing with python version " << pythonVersion << std::endl;
+  
     // These are needed to force the dynamic loading of module dependencies (found in CMakeLists.txt)
     sofa::core::init();
     sofa::simulation::core::init();

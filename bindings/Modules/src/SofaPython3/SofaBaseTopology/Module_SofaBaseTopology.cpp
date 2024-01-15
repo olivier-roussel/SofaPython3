@@ -18,6 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
+#include <iostream>
 #include <pybind11/pybind11.h>
 
 #include <SofaPython3/SofaBaseTopology/Binding_RegularGridTopology.h>
@@ -32,6 +33,9 @@ namespace sofapython3
 
 PYBIND11_MODULE(SofaBaseTopology, m)
 {
+    std::cout <<  "PYBIND11_MODULE SofaBaseTopology : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE SofaBaseTopology Initializing with python version " << pythonVersion << std::endl;
     sofa::component::topology::container::grid::init();
 
     moduleAddRegularGridTopology(m);

@@ -18,7 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
-
+#include <iostream>
 #include <pybind11/pybind11.h>
 #include <SofaPython3/SofaTypes/Binding_Mat.h>
 #include <SofaPython3/SofaTypes/Binding_Quat.h>
@@ -27,6 +27,10 @@
 
 /// The first parameter must be named the same as the module file to load.
 PYBIND11_MODULE(SofaTypes, m) {
+    std::cout <<  "PYBIND11_MODULE SofaTypes : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE SofaTypes Initializing with python version " << pythonVersion << std::endl;
+
     sofa::defaulttype::init();
 
     moduleAddMat(m);

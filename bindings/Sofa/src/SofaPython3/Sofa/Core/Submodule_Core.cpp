@@ -18,7 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
-
+#include <iostream>
 #include <sofa/helper/logging/Messaging.h>
 using sofa::helper::logging::Message;
 
@@ -57,6 +57,10 @@ namespace sofapython3
 /// The first parameter must be named the same as the module file to load.
 PYBIND11_MODULE(Core, core)
 {
+    std::cout <<  "PYBIND11_MODULE Core : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE Core Initializing with python version " << pythonVersion << std::endl;
+
     core.doc() = R"doc(
            Scene components
            -----------------------

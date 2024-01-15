@@ -18,6 +18,7 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 
+#include <iostream>
 #include <pybind11/pybind11.h>
 #include <SofaPython3/SofaGL/Binding_DrawToolGL.h>
 
@@ -29,6 +30,10 @@ namespace sofapython3
 
 PYBIND11_MODULE(SofaGL, m)
 {
+    std::cout <<  "PYBIND11_MODULE SofaGL : Entering.... " << std::endl;
+    std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PYBIND11_MODULE SofaGL Initializing with python version " << pythonVersion << std::endl;
+
     moduleAddDrawToolGL(m);
 }
 
