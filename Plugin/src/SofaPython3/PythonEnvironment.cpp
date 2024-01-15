@@ -193,6 +193,10 @@ void PythonEnvironment::Init()
         // is initialized.
         static const PyThreadState* init = PyEval_SaveThread(); (void) init;
     }
+
+    std::wstring pythonPath = Py_GetProgramFullPath();
+    std::wcout << "----------- Initializing with python prefix " << pythonPath << std::endl;
+
     std::cout << "---------- PyEval_InitThreads()" << std::endl;
     PyEval_InitThreads();
 

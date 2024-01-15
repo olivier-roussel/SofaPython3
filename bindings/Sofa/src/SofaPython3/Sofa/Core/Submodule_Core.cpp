@@ -60,6 +60,8 @@ PYBIND11_MODULE(Core, core)
     std::cout <<  "PYBIND11_MODULE Core : Entering.... " << std::endl;
     std::string pythonVersion = Py_GetVersion();
     std::cout <<  "PYBIND11_MODULE Core Initializing with python version " << pythonVersion << std::endl;
+    std::wstring pythonPath = Py_GetProgramFullPath();
+    std::wcout <<  "PYBIND11_MODULE Core Initializing with python prefix " << pythonPath << std::endl;
 
     core.doc() = R"doc(
            Scene components
