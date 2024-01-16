@@ -193,9 +193,30 @@ void PythonEnvironment::Init()
         // is initialized.
         static const PyThreadState* init = PyEval_SaveThread(); (void) init;
     }
+    std::cout <<  "--------------------------------------- " << std::endl;
 
-    std::wstring pythonPath = Py_GetProgramFullPath();
-    std::wcout << "----------- Initializing with python prefix " << pythonPath << std::endl;
+    std::wstring pythonProgramName = Py_GetProgramName();
+    std::wcout <<  "PythonEnvironment::Init Py_GetProgramName = " << pythonProgramName << std::endl;
+    std::wstring pythonPrefix = Py_GetPrefix();
+    std::wcout <<  "PythonEnvironment::Init Py_GetPrefix = " << pythonPrefix << std::endl;
+    std::wstring pythonExecPrefix = Py_GetExecPrefix();
+    std::wcout <<  "PythonEnvironment::Init Py_GetExecPrefix = " << pythonExecPrefix << std::endl;
+    std::wstring pythonProgramFullPath = Py_GetProgramFullPath();
+    std::wcout <<  "PythonEnvironment::Init Py_GetProgramFullPath = " << pythonProgramFullPath << std::endl;
+    std::wstring pythonPath = Py_GetPath();
+    std::wcout <<  "PythonEnvironment::Init Py_GetPath = " << pythonPath << std::endl;
+
+    std::string pythonPlatform = Py_GetPlatform();
+    std::cout <<  "PythonEnvironment::Init Py_GetPlatform = " << pythonPlatform << std::endl;
+    std::string pythonCompiler = Py_GetCompiler();
+    std::cout <<  "PythonEnvironment::Init Py_GetCompiler = " << pythonCompiler << std::endl;
+    std::string pythonBuildInfo = Py_GetBuildInfo();
+    std::cout <<  "PythonEnvironment::Init Py_GetBuildInfo = " << pythonBuildInfo << std::endl;
+    std::wstring pythonPythonHome = Py_GetPythonHome();
+    std::wcout <<  "PythonEnvironment::Init Py_GetPythonHome = " << pythonPythonHome << std::endl;
+
+
+    std::cout <<  "--------------------------------------- " << std::endl;
 
     std::cout << "---------- PyEval_InitThreads()" << std::endl;
     PyEval_InitThreads();
