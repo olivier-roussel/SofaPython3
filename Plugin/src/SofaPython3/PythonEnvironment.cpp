@@ -170,8 +170,8 @@ SOFAPYTHON3_API py::module PythonEnvironment::importFromFile(const std::string& 
 
 void PythonEnvironment::Init()
 {
-    std::cout << "---------- Py_GetVersion()" << std::endl;
     std::string pythonVersion = Py_GetVersion();
+    std::cout <<  "PythonEnvironment::Init Py_GetVersion BEFORE INIT = " << pythonVersion << std::endl;
     msg_info("SofaPython3") << "Initializing with python version " << pythonVersion;
 
     if( !SceneLoaderFactory::getInstance()->getEntryFileExtension("py3") )
@@ -194,6 +194,10 @@ void PythonEnvironment::Init()
         static const PyThreadState* init = PyEval_SaveThread(); (void) init;
     }
     std::cout <<  "--------------------------------------- " << std::endl;
+    std::cout <<  "PythonEnvironment::Init Python version AFTER INIT " << Py_GetVersion() << std::endl;
+
+    int pythonIsInitialized = Py_IsInitialized();
+    std::cout <<  "PythonEnvironment::Init Py_IsInitialized = " << pythonIsInitialized << std::endl;
 
     std::wstring pythonProgramName = Py_GetProgramName();
     std::wcout <<  "PythonEnvironment::Init Py_GetProgramName = " << pythonProgramName << std::endl;
@@ -214,7 +218,6 @@ void PythonEnvironment::Init()
     std::cout <<  "PythonEnvironment::Init Py_GetBuildInfo = " << pythonBuildInfo << std::endl;
     std::wstring pythonPythonHome = Py_GetPythonHome();
     std::wcout <<  "PythonEnvironment::Init Py_GetPythonHome = " << pythonPythonHome << std::endl;
-
 
     std::cout <<  "--------------------------------------- " << std::endl;
 

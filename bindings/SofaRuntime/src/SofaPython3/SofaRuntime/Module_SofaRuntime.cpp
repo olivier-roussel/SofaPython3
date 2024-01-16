@@ -133,30 +133,69 @@ PYBIND11_MODULE(SofaRuntime, m) {
               )doc";
 
     std::cout <<  "--------------------------------------- " << std::endl;
-    std::cout <<  "PYBIND11_MODULE SofaRuntime : Entering.... " << std::endl;
-    std::string pythonVersion = Py_GetVersion();
-    std::cout <<  "PYBIND11_MODULE SofaRuntime Initializing with python version " << pythonVersion << std::endl;
+    int pythonIsInitialized = Py_IsInitialized();
+    std::cout <<  "PYBIND11_MODULE SofaRuntime Py_IsInitialized = " << pythonIsInitialized << std::endl;
+
+    {
+      std::cout <<  "PYBIND11_MODULE SofaRuntime : Entering.... " << std::endl;
+      std::string pythonVersion = Py_GetVersion();
+      std::cout <<  "PYBIND11_MODULE SofaRuntime Initializing with python version " << pythonVersion << std::endl;
+
+
+      std::wstring pythonProgramName = Py_GetProgramName();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetProgramName = " << pythonProgramName << std::endl;
+      std::wstring pythonPrefix = Py_GetPrefix();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPrefix = " << pythonPrefix << std::endl;
+      std::wstring pythonExecPrefix = Py_GetExecPrefix();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetExecPrefix = " << pythonExecPrefix << std::endl;
+      std::wstring pythonProgramFullPath = Py_GetProgramFullPath();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetProgramFullPath = " << pythonProgramFullPath << std::endl;
+      std::wstring pythonPath = Py_GetPath();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPath = " << pythonPath << std::endl;
+
+      std::string pythonPlatform = Py_GetPlatform();
+      std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetPlatform = " << pythonPlatform << std::endl;
+      std::string pythonCompiler = Py_GetCompiler();
+      std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetCompiler = " << pythonCompiler << std::endl;
+      std::string pythonBuildInfo = Py_GetBuildInfo();
+      std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetBuildInfo = " << pythonBuildInfo << std::endl;
+      std::wstring pythonPythonHome = Py_GetPythonHome();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPythonHome = " << pythonPythonHome << std::endl;
+    }
+
     std::cout <<  "--------------------------------------- " << std::endl;
+    std::cout <<  "--------------------------------------- " << std::endl;
+    if(pythonIsInitialized == 0)
+    {
+      std::cout <<  "PythonEnvironment::Init Python was not initialized. Initializing..."  << std::endl;
+      Py_Initialize();
 
-    std::wstring pythonProgramName = Py_GetProgramName();
-    std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetProgramName = " << pythonProgramName << std::endl;
-    std::wstring pythonPrefix = Py_GetPrefix();
-    std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPrefix = " << pythonPrefix << std::endl;
-    std::wstring pythonExecPrefix = Py_GetExecPrefix();
-    std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetExecPrefix = " << pythonExecPrefix << std::endl;
-    std::wstring pythonProgramFullPath = Py_GetProgramFullPath();
-    std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetProgramFullPath = " << pythonProgramFullPath << std::endl;
-    std::wstring pythonPath = Py_GetPath();
-    std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPath = " << pythonPath << std::endl;
+      std::cout <<  "PYBIND11_MODULE SofaRuntime --- After INIT --- " << std::endl;
+      std::cout <<  "PYBIND11_MODULE SofaRuntime Py_IsInitialized = " << Py_IsInitialized() << std::endl;
+      std::string pythonVersion = Py_GetVersion();
+      std::cout <<  "PYBIND11_MODULE SofaRuntime Initializing with python version " << pythonVersion << std::endl;
 
-    std::string pythonPlatform = Py_GetPlatform();
-    std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetPlatform = " << pythonPlatform << std::endl;
-    std::string pythonCompiler = Py_GetCompiler();
-    std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetCompiler = " << pythonCompiler << std::endl;
-    std::string pythonBuildInfo = Py_GetBuildInfo();
-    std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetBuildInfo = " << pythonBuildInfo << std::endl;
-    std::wstring pythonPythonHome = Py_GetPythonHome();
-    std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPythonHome = " << pythonPythonHome << std::endl;
+      std::wstring pythonProgramName = Py_GetProgramName();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetProgramName = " << pythonProgramName << std::endl;
+      std::wstring pythonPrefix = Py_GetPrefix();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPrefix = " << pythonPrefix << std::endl;
+      std::wstring pythonExecPrefix = Py_GetExecPrefix();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetExecPrefix = " << pythonExecPrefix << std::endl;
+      std::wstring pythonProgramFullPath = Py_GetProgramFullPath();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetProgramFullPath = " << pythonProgramFullPath << std::endl;
+      std::wstring pythonPath = Py_GetPath();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPath = " << pythonPath << std::endl;
+
+      std::string pythonPlatform = Py_GetPlatform();
+      std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetPlatform = " << pythonPlatform << std::endl;
+      std::string pythonCompiler = Py_GetCompiler();
+      std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetCompiler = " << pythonCompiler << std::endl;
+      std::string pythonBuildInfo = Py_GetBuildInfo();
+      std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetBuildInfo = " << pythonBuildInfo << std::endl;
+      std::wstring pythonPythonHome = Py_GetPythonHome();
+      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPythonHome = " << pythonPythonHome << std::endl;
+
+    }
 
     std::cout <<  "--------------------------------------- " << std::endl;
 
