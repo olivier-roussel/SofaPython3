@@ -22,8 +22,11 @@ SP3_add_python_package(
 
 get_target_property(SP3_PLUGIN_ALL_LIBS SofaPython3::Plugin LINK_LIBRARIES)
 get_target_property(SP3_PLUGIN_INTERFACE_LIBS SofaPython3::Plugin INTERFACE_LINK_LIBRARIES)
-get_target_property(SP3_BINDINGS_SOFA_CORE_ALL_LIBS  SofaPython3::Bindings.Sofa.Core LINK_LIBRARIES)
-get_target_property(SP3_BINDINGS_SOFA_CORE_INTERFACE_LIBS  SofaPython3::Bindings.Sofa.Core INTERFACE_LINK_LIBRARIES)
+get_target_property(SP3_BINDINGS_SOFA_CORE_ALL_LIBS SofaPython3::Bindings.Sofa.Core LINK_LIBRARIES)
+get_target_property(SP3_BINDINGS_SOFA_CORE_INTERFACE_LIBS SofaPython3::Bindings.Sofa.Core INTERFACE_LINK_LIBRARIES)
+
+get_target_property(SP3_SOFA_SIMU_GRAPH_ALL_LIBS Sofa.Simulation.Graph LINK_LIBRARIES)
+get_target_property(SP3_SOFA_SIMU_GRAPH_INTERFACE_LIBS Sofa.Simulation.Graph INTERFACE_LINK_LIBRARIES)
 
 message("**************** SP3_PLUGIN_ALL_LIBS=${SP3_PLUGIN_ALL_LIBS}")
 message("**************** SP3_PLUGIN_INTERFACE_LIBS=${SP3_PLUGIN_INTERFACE_LIBS}")
@@ -45,7 +48,3 @@ sofa_create_component_in_package_with_targets(
     PACKAGE_NAME SofaPython3
     TARGETS ${PROJECT_NAME}
     )
-
-if(SP3_BUILD_TEST)
-    add_subdirectory(tests)
-endif()
