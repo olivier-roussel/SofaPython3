@@ -159,8 +159,15 @@ PYBIND11_MODULE(SofaRuntime, m) {
       std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetCompiler = " << pythonCompiler << std::endl;
       std::string pythonBuildInfo = Py_GetBuildInfo();
       std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetBuildInfo = " << pythonBuildInfo << std::endl;
-      std::wstring pythonPythonHome = Py_GetPythonHome();
-      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPythonHome = " << pythonPythonHome << std::endl;
+      if(Py_GetPythonHome() != NULL)
+      {
+        std::wstring pythonPythonHome = Py_GetPythonHome();
+        std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPythonHome = " << pythonPythonHome << std::endl;
+      }
+      else
+      {
+        std::cout << "PYBIND11_MODULE SofaRuntime Py_GetPythonHome got NULL value" << std::endl;
+      }
     }
 
     std::cout <<  "--------------------------------------- " << std::endl;
@@ -192,8 +199,15 @@ PYBIND11_MODULE(SofaRuntime, m) {
       std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetCompiler = " << pythonCompiler << std::endl;
       std::string pythonBuildInfo = Py_GetBuildInfo();
       std::cout <<  "PYBIND11_MODULE SofaRuntime Py_GetBuildInfo = " << pythonBuildInfo << std::endl;
-      std::wstring pythonPythonHome = Py_GetPythonHome();
-      std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPythonHome = " << pythonPythonHome << std::endl;
+      if(Py_GetPythonHome() != NULL)
+      {
+        std::wstring pythonPythonHome = Py_GetPythonHome();
+        std::wcout <<  "PYBIND11_MODULE SofaRuntime Py_GetPythonHome = " << pythonPythonHome << std::endl;
+      }
+      else
+      {
+        std::cout << "PYBIND11_MODULE SofaRuntime Py_GetPythonHome got NULL value" << std::endl;
+      }
 
     }
 
