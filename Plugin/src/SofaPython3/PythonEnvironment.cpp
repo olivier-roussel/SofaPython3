@@ -194,6 +194,7 @@ void PythonEnvironment::Init()
         static const PyThreadState* init = PyEval_SaveThread(); (void) init;
     }
     std::cout <<  "--------------------------------------- " << std::endl;
+    Py_Initialize();
     std::cout <<  "PythonEnvironment::Init Python version AFTER INIT " << Py_GetVersion() << std::endl;
 
     int pythonIsInitialized = Py_IsInitialized();

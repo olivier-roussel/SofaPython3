@@ -133,13 +133,14 @@ PYBIND11_MODULE(SofaRuntime, m) {
               )doc";
 
     std::cout <<  "--------------------------------------- " << std::endl;
+    Py_Initialize();
     int pythonIsInitialized = Py_IsInitialized();
     std::cout <<  "PYBIND11_MODULE SofaRuntime Py_IsInitialized = " << pythonIsInitialized << std::endl;
 
     {
       std::cout <<  "PYBIND11_MODULE SofaRuntime : Entering.... " << std::endl;
       std::string pythonVersion = Py_GetVersion();
-      std::cout <<  "PYBIND11_MODULE SofaRuntime Initializing with python version " << pythonVersion << std::endl;
+      std::cout <<  "PYBIND11_MODULE SofaRuntime Python version " << pythonVersion << std::endl;
 
 
       std::wstring pythonProgramName = Py_GetProgramName();
