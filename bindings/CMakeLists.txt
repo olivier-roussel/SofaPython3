@@ -1,9 +1,10 @@
 project(Bindings)
 
-set(BINDINGS_MODULE_LIST Sofa SofaRuntime SofaGui SofaTypes Modules)
-if(SP3_WITH_SOFAEXPORTER)
-    list(APPEND BINDINGS_MODULE_LIST SofaExporter)
-endif()
+# set(BINDINGS_MODULE_LIST Sofa SofaRuntime SofaGui SofaTypes Modules)
+set(BINDINGS_MODULE_LIST Sofa SofaRuntime)
+# if(SP3_WITH_SOFAEXPORTER)
+    # list(APPEND BINDINGS_MODULE_LIST SofaExporter)
+# endif()
 
 # This will set rpaths relative to SP3 plugin library
 if(UNIX)

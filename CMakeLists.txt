@@ -4,45 +4,45 @@ project(SofaPython3 VERSION 20.12.00)
 
 find_package(Sofa.Config REQUIRED)
 
-# Detect if SofaPython3 is a subproject of another project (eg. when compiled within Sofa)
-if (NOT "${CMAKE_PROJECT_NAME}" STREQUAL "${PROJECT_NAME}")
-    set(SP3_COMPILED_AS_SUBPROJECT 1)
-    message(STATUS "${PROJECT_NAME} is compiled as a subproject to the external project '${CMAKE_PROJECT_NAME}'.")
-    if("${CMAKE_PROJECT_NAME}" STREQUAL "Sofa")
-        set(SP3_COMPILED_AS_SOFA_SUBPROJECT 1)
-    endif()
-else()
-    unset(SP3_COMPILED_AS_SUBPROJECT)
-endif ()
+# # Detect if SofaPython3 is a subproject of another project (eg. when compiled within Sofa)
+# if (NOT "${CMAKE_PROJECT_NAME}" STREQUAL "${PROJECT_NAME}")
+#     set(SP3_COMPILED_AS_SUBPROJECT 1)
+#     message(STATUS "${PROJECT_NAME} is compiled as a subproject to the external project '${CMAKE_PROJECT_NAME}'.")
+#     if("${CMAKE_PROJECT_NAME}" STREQUAL "Sofa")
+#         set(SP3_COMPILED_AS_SOFA_SUBPROJECT 1)
+#     endif()
+# else()
+#     unset(SP3_COMPILED_AS_SUBPROJECT)
+# endif ()
 
-# If the plugin is compiled within SOFA, add an option to deactivate it, in which case the remaining
-# of this file won't run and therefore will not generate any error if the requirements (python, pybind11)
-# are not found.
-if (SP3_COMPILED_AS_SOFA_SUBPROJECT)
-    option(PLUGIN_SOFAPYTHON3 "Build the SofaPython3 plugin." ON)
-    if (NOT PLUGIN_SOFAPYTHON3)
-        return()
-    else()
-        message("Adding plugin SofaPython3")
-    endif()
-endif()
+# # If the plugin is compiled within SOFA, add an option to deactivate it, in which case the remaining
+# # of this file won't run and therefore will not generate any error if the requirements (python, pybind11)
+# # are not found.
+# if (SP3_COMPILED_AS_SOFA_SUBPROJECT)
+#     option(PLUGIN_SOFAPYTHON3 "Build the SofaPython3 plugin." ON)
+#     if (NOT PLUGIN_SOFAPYTHON3)
+#         return()
+#     else()
+#         message("Adding plugin SofaPython3")
+#     endif()
+# endif()
 
 # CMAKE TOOLS
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/CMake")
 include(SofaPython3Tools)
 
 # OPTIONS
-include(CMakeDependentOption)
+# include(CMakeDependentOption)
 
 # If SOFA_BUILD_TESTS exists and is OFF, then this option will be auto-disabled
-cmake_dependent_option(SP3_BUILD_TEST "Compile the automatic tests for SofaPython3, along with the gtest library." ON "SOFA_BUILD_TESTS OR NOT DEFINED SOFA_BUILD_TESTS" OFF)
-if(SP3_BUILD_TEST)
-    # TODO: remove this when SOFA's GTest handles threads correctly
-    find_package(Threads REQUIRED)
-endif()
+# cmake_dependent_option(SP3_BUILD_TEST "Compile the automatic tests for SofaPython3, along with the gtest library." ON "SOFA_BUILD_TESTS OR NOT DEFINED SOFA_BUILD_TESTS" OFF)
+# if(SP3_BUILD_TEST)
+#     # TODO: remove this when SOFA's GTest handles threads correctly
+#     find_package(Threads REQUIRED)
+# endif()
 
-sofa_find_package(Sofa.Component.IO.Mesh QUIET)
-CMAKE_DEPENDENT_OPTION(SP3_WITH_SOFAEXPORTER "Bind the SOFA exporter component." ON "Sofa.Component.IO.Mesh_FOUND" OFF)
+# sofa_find_package(Sofa.Component.IO.Mesh QUIET)
+# CMAKE_DEPENDENT_OPTION(SP3_WITH_SOFAEXPORTER "Bind the SOFA exporter component." ON "Sofa.Component.IO.Mesh_FOUND" OFF)
 
 # BUILD OPTIONS
 if (NOT SP3_COMPILED_AS_SUBPROJECT)
@@ -63,14 +63,14 @@ if (NOT SP3_COMPILED_AS_SUBPROJECT)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${LIBRARY_OUTPUT_DIRECTORY})
 endif()
 
-if(MSVC)
-    # With C++17 (/std:c++17), to get MSVC to behave, you need /permissive-
-    # see https://github.com/pybind/pybind11/issues/1616
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /permissive-")
+# if(MSVC)
+#     # With C++17 (/std:c++17), to get MSVC to behave, you need /permissive-
+#     # see https://github.com/pybind/pybind11/issues/1616
+#     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /permissive-")
 
-    # use M_PI in cmath.h
-    add_definitions("-D_USE_MATH_DEFINES")
-endif()
+#     # use M_PI in cmath.h
+#     add_definitions("-D_USE_MATH_DEFINES")
+# endif()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -80,10 +80,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Set the minimum python version to 3.7
-set(PYBIND11_PYTHON_VERSION 3.7)
+# set(PYBIND11_PYTHON_VERSION 3.7)
 
 # Set the minimum pybind11 version to 2.3 (before that the pybind11::embed target did not exist)
-find_package(pybind11 2.3 CONFIG QUIET REQUIRED)
+find_package(pybind11 2.11 CONFIG REQUIRED)
 
 set(SP3_PYTHON_PACKAGES_DIRECTORY
     "python3/site-packages"
@@ -145,11 +145,11 @@ endif()
 
 add_subdirectory(Plugin)
 add_subdirectory(bindings)
-add_subdirectory(examples)
-add_subdirectory(docs)
-if (SP3_BUILD_TEST)
-    add_subdirectory(Testing)
-endif()
+# add_subdirectory(examples)
+# add_subdirectory(docs)
+# if (SP3_BUILD_TEST)
+#     add_subdirectory(Testing)
+# endif()
 
 SP3_add_python_package(
     SOURCE_DIRECTORY
@@ -161,12 +161,12 @@ SP3_add_python_package(
 ## This is only to warn users that splib is now relocated in its own repository
 # it just contains a __init__.py rising an exception indicating to where to find the plugin.
 # If splib is available, then splib/__init__.py will be overriden by the one from the real splib.
-SP3_add_python_package(
-    SOURCE_DIRECTORY
-        ${CMAKE_CURRENT_SOURCE_DIR}/splib
-    TARGET_DIRECTORY
-        splib
-)
+# SP3_add_python_package(
+#     SOURCE_DIRECTORY
+#         ${CMAKE_CURRENT_SOURCE_DIR}/splib
+#     TARGET_DIRECTORY
+#         splib
+# )
 
 sofa_create_package(
     PACKAGE_NAME ${PROJECT_NAME}
