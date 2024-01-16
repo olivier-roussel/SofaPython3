@@ -216,9 +216,15 @@ void PythonEnvironment::Init()
     std::cout <<  "PythonEnvironment::Init Py_GetCompiler = " << pythonCompiler << std::endl;
     std::string pythonBuildInfo = Py_GetBuildInfo();
     std::cout <<  "PythonEnvironment::Init Py_GetBuildInfo = " << pythonBuildInfo << std::endl;
-    std::wstring pythonPythonHome = Py_GetPythonHome();
-    std::wcout <<  "PythonEnvironment::Init Py_GetPythonHome = " << pythonPythonHome << std::endl;
-
+    if(Py_GetPythonHome() != NULL)
+    {
+      std::wstring pythonPythonHome = Py_GetPythonHome();
+      std::wcout <<  "PythonEnvironment::Init Py_GetPythonHome = " << pythonPythonHome << std::endl;
+    }
+    else
+    {
+      std::cout << "PythonEnvironment::Init Py_GetPythonHome got NULL value" << std::endl;
+    }
     std::cout <<  "--------------------------------------- " << std::endl;
 
     std::cout << "---------- PyEval_InitThreads()" << std::endl;
