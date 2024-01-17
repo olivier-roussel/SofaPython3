@@ -169,12 +169,12 @@ function(SP3_add_python_module)
     file(TO_CMAKE_PATH "${from_target_to_lib}" from_target_to_lib) # prettify this path
 
     # RPATH needed to find dependencies in <SofaPython3_install_dir>/lib
-    list(APPEND TARGET_DEPENDENCIES_RPATH
-        "$ORIGIN/${from_target_to_lib}/../lib"
-        "$$ORIGIN/${from_target_to_lib}/../lib"
-        "@loader_path/${from_target_to_lib}/../lib"
-        "@executable_path/${from_target_to_lib}/../lib"
-        )
+    # list(APPEND TARGET_DEPENDENCIES_RPATH
+    #     "$ORIGIN/${from_target_to_lib}/../lib"
+    #     "$$ORIGIN/${from_target_to_lib}/../lib"
+    #     "@loader_path/${from_target_to_lib}/../lib"
+    #     "@executable_path/${from_target_to_lib}/../lib"
+    #     )
 
     # # RPATH needed to find dependencies in <SOFA_install_dir>/lib
     # list(APPEND TARGET_DEPENDENCIES_RPATH
