@@ -227,31 +227,31 @@ function(SP3_add_python_module)
     # 1. First, compute the relative path from the current target towards the "plugins" relocatable directory of SOFA
     # 2. Append to the previous computed path the RELOCATABLE_INSTALL_DIR target property of the dependency since the
     #    latter is formulated with respect to the "plugins" relocatable (e.g. "plugins/SofaBoundaryConditions/lib")
-    foreach(DEPENDENCY ${DEPENDS_ALL})
-        if(NOT TARGET ${DEPENDENCY})
-            continue()
-        endif()
-        get_target_property(aliased_dep ${DEPENDENCY} ALIASED_TARGET)
-        if(aliased_dep)
-            set(DEPENDENCY ${aliased_dep})
-        endif()
-        get_target_property(DEPENDENCY_RELOCATABLE_INSTALL_DIR "${DEPENDENCY}" RELOCATABLE_INSTALL_DIR)
-        if (DEPENDENCY_RELOCATABLE_INSTALL_DIR)
-            # Here, we assume that the SP3 plugin will be installed in the SOFA plugins directory (i.e. $SOFA_ROOT/plugins)
-            # Hence, we need to compute the relative path from this plugins directory to the current binding
-            # modules, for example, plugins/SofaPython3/lib/python3/site-packages/Sofa/Core.***.so
-            # will become "../../../../../.." (three levels upper than the previous computed relative path)
+    # foreach(DEPENDENCY ${DEPENDS_ALL})
+    #     if(NOT TARGET ${DEPENDENCY})
+    #         continue()
+    #     endif()
+    #     get_target_property(aliased_dep ${DEPENDENCY} ALIASED_TARGET)
+    #     if(aliased_dep)
+    #         set(DEPENDENCY ${aliased_dep})
+    #     endif()
+    #     get_target_property(DEPENDENCY_RELOCATABLE_INSTALL_DIR "${DEPENDENCY}" RELOCATABLE_INSTALL_DIR)
+    #     if (DEPENDENCY_RELOCATABLE_INSTALL_DIR)
+    #         # Here, we assume that the SP3 plugin will be installed in the SOFA plugins directory (i.e. $SOFA_ROOT/plugins)
+    #         # Hence, we need to compute the relative path from this plugins directory to the current binding
+    #         # modules, for example, plugins/SofaPython3/lib/python3/site-packages/Sofa/Core.***.so
+    #         # will become "../../../../../.." (three levels upper than the previous computed relative path)
 
-            # Alright, now we have the path from the current target towards the "plugins" relocatable directory of SOFA
-            # We can compute the relative path from the current target towards the dependency relocatable path.
-            list(APPEND TARGET_DEPENDENCIES_RPATH
-                "$ORIGIN/${from_target_to_lib}/../../../${DEPENDENCY_RELOCATABLE_INSTALL_DIR}/lib"
-                "$$ORIGIN/${from_target_to_lib}/../../../${DEPENDENCY_RELOCATABLE_INSTALL_DIR}/lib"
-                "@loader_path/${from_target_to_lib}/../../../${DEPENDENCY_RELOCATABLE_INSTALL_DIR}/lib"
-                "@executable_path/${from_target_to_lib}/../../../${DEPENDENCY_RELOCATABLE_INSTALL_DIR}/lib"
-                )
-        endif()
-    endforeach()
+    #         # Alright, now we have the path from the current target towards the "plugins" relocatable directory of SOFA
+    #         # We can compute the relative path from the current target towards the dependency relocatable path.
+    #         list(APPEND TARGET_DEPENDENCIES_RPATH
+    #             "$ORIGIN/${from_target_to_lib}/../../../${DEPENDENCY_RELOCATABLE_INSTALL_DIR}/lib"
+    #             "$$ORIGIN/${from_target_to_lib}/../../../${DEPENDENCY_RELOCATABLE_INSTALL_DIR}/lib"
+    #             "@loader_path/${from_target_to_lib}/../../../${DEPENDENCY_RELOCATABLE_INSTALL_DIR}/lib"
+    #             "@executable_path/${from_target_to_lib}/../../../${DEPENDENCY_RELOCATABLE_INSTALL_DIR}/lib"
+    #             )
+    #     endif()
+    # endforeach()
 
     set_target_properties(
         ${A_TARGET}
