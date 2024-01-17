@@ -47,6 +47,13 @@ get_target_property(PYBIND_MODULE_INTERFACE_LIBS pybind11::module INTERFACE_LINK
 
 message("**************** PYBIND_MODULE_ALL_LIBS=${PYBIND_MODULE_ALL_LIBS}")
 message("**************** PYBIND_MODULE_INTERFACE_LIBS=${PYBIND_MODULE_INTERFACE_LIBS}")
+
+get_target_property(PYBIND_PYTHON_LIBS_ALL_LIBS pybind11::_ClassicPythonLibraries LINK_LIBRARIES)
+get_target_property(PYBIND_PYTHON_INTERFACE_LIBS pybind11::_ClassicPythonLibraries INTERFACE_LINK_LIBRARIES)
+
+message("**************** PYBIND_PYTHON_LIBS_ALL_LIBS=${PYBIND_PYTHON_LIBS_ALL_LIBS}")
+message("**************** PYBIND_PYTHON_INTERFACE_LIBS=${PYBIND_PYTHON_INTERFACE_LIBS}")
+
 message("**************** End SOFA Runtime ************************")
 
 SP3_add_python_module(
