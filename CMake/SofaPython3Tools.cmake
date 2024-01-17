@@ -160,13 +160,13 @@ function(SP3_add_python_module)
     #    We compute its path relative to this target output file
     #    Ex: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/site-packages/Sofa  --> $ORIGIN/../Sofa
     # 3. Add the relative path computed in 2 to the list of RPATHS
-    get_target_property(TARGET_DEPENDENCIES_RPATH ${A_TARGET} "INSTALL_RPATH")
+    # get_target_property(TARGET_DEPENDENCIES_RPATH ${A_TARGET} "INSTALL_RPATH")
 
-    # Get the relative path from this binding module to the install lib directory
-    # For example, for lib/python3/site-packages/Sofa/Core.***.so, the relative path will be
-    # "../../.."
-    file(RELATIVE_PATH from_target_to_lib "${TARGET_LIBRARY_OUTPUT_DIRECTORY}" "${CMAKE_BINARY_DIR}/lib")
-    file(TO_CMAKE_PATH "${from_target_to_lib}" from_target_to_lib) # prettify this path
+    # # Get the relative path from this binding module to the install lib directory
+    # # For example, for lib/python3/site-packages/Sofa/Core.***.so, the relative path will be
+    # # "../../.."
+    # file(RELATIVE_PATH from_target_to_lib "${TARGET_LIBRARY_OUTPUT_DIRECTORY}" "${CMAKE_BINARY_DIR}/lib")
+    # file(TO_CMAKE_PATH "${from_target_to_lib}" from_target_to_lib) # prettify this path
 
     # RPATH needed to find dependencies in <SofaPython3_install_dir>/lib
     # list(APPEND TARGET_DEPENDENCIES_RPATH
@@ -195,33 +195,33 @@ function(SP3_add_python_module)
     #         )
     # endif()
 
-    # RPATH needed to find dependencies in <SofaPython3_install_dir>/lib/python3/site-packages
-    foreach(DEPENDENCY ${DEPENDS_ALL})
-        if(NOT TARGET ${DEPENDENCY})
-            continue()
-        endif()
-        get_target_property(aliased_dep ${DEPENDENCY} ALIASED_TARGET)
-        if(aliased_dep)
-            set(DEPENDENCY ${aliased_dep})
-        endif()
-        get_target_property(DEPENDENCY_LIBRARY_OUTPUT_DIRECTORY "${DEPENDENCY}" LIBRARY_OUTPUT_DIRECTORY)
-        # if dependency is also a python module
-        if(DEPENDENCY_LIBRARY_OUTPUT_DIRECTORY MATCHES ".*${SP3_PYTHON_PACKAGES_DIRECTORY}.*")
-            file(RELATIVE_PATH from_target_to_dependency "${TARGET_LIBRARY_OUTPUT_DIRECTORY}" "${DEPENDENCY_LIBRARY_OUTPUT_DIRECTORY}")
-            file(TO_CMAKE_PATH "${from_target_to_dependency}" from_target_to_dependency) # prettify this path
+    # # RPATH needed to find dependencies in <SofaPython3_install_dir>/lib/python3/site-packages
+    # foreach(DEPENDENCY ${DEPENDS_ALL})
+    #     if(NOT TARGET ${DEPENDENCY})
+    #         continue()
+    #     endif()
+    #     get_target_property(aliased_dep ${DEPENDENCY} ALIASED_TARGET)
+    #     if(aliased_dep)
+    #         set(DEPENDENCY ${aliased_dep})
+    #     endif()
+    #     get_target_property(DEPENDENCY_LIBRARY_OUTPUT_DIRECTORY "${DEPENDENCY}" LIBRARY_OUTPUT_DIRECTORY)
+    #     # if dependency is also a python module
+    #     if(DEPENDENCY_LIBRARY_OUTPUT_DIRECTORY MATCHES ".*${SP3_PYTHON_PACKAGES_DIRECTORY}.*")
+    #         file(RELATIVE_PATH from_target_to_dependency "${TARGET_LIBRARY_OUTPUT_DIRECTORY}" "${DEPENDENCY_LIBRARY_OUTPUT_DIRECTORY}")
+    #         file(TO_CMAKE_PATH "${from_target_to_dependency}" from_target_to_dependency) # prettify this path
 
-            if(from_target_to_dependency)
-                if(NOT "@loader_path/${from_target_to_dependency}" IN_LIST TARGET_DEPENDENCIES_RPATH)
-                    list(APPEND TARGET_DEPENDENCIES_RPATH
-                        "$ORIGIN/${from_target_to_dependency}"
-                        "$$ORIGIN/${from_target_to_dependency}"
-                        "@loader_path/${from_target_to_dependency}"
-                        "@executable_path/${from_target_to_dependency}"
-                        )
-                endif()
-            endif()
-        endif()
-    endforeach()
+    #         if(from_target_to_dependency)
+    #             if(NOT "@loader_path/${from_target_to_dependency}" IN_LIST TARGET_DEPENDENCIES_RPATH)
+    #                 list(APPEND TARGET_DEPENDENCIES_RPATH
+    #                     "$ORIGIN/${from_target_to_dependency}"
+    #                     "$$ORIGIN/${from_target_to_dependency}"
+    #                     "@loader_path/${from_target_to_dependency}"
+    #                     "@executable_path/${from_target_to_dependency}"
+    #                     )
+    #             endif()
+    #         endif()
+    #     endif()
+    # endforeach()
 
     # Compute the installation RPATHs from the target's SOFA relocatable dependencies
     # 1. First, compute the relative path from the current target towards the "plugins" relocatable directory of SOFA
@@ -253,20 +253,20 @@ function(SP3_add_python_module)
     #     endif()
     # endforeach()
 
-    set_target_properties(
-        ${A_TARGET}
-        PROPERTIES
+    # set_target_properties(
+    #     ${A_TARGET}
+    #     PROPERTIES
 
-            # This option only works for target that are not defined by the SP3 project
-            # see https://stackoverflow.com/a/30400628 for details
-            INSTALL_RPATH_USE_LINK_PATH TRUE
+    #         # This option only works for target that are not defined by the SP3 project
+    #         # see https://stackoverflow.com/a/30400628 for details
+    #         INSTALL_RPATH_USE_LINK_PATH TRUE
 
-            # This will set the remaining RPATHs from our Bindings targets dependencies (install/lib/site-packages/*)
-            INSTALL_RPATH "${TARGET_DEPENDENCIES_RPATH}"
+    #         # This will set the remaining RPATHs from our Bindings targets dependencies (install/lib/site-packages/*)
+    #         INSTALL_RPATH "${TARGET_DEPENDENCIES_RPATH}"
 
-            # Don't use the installation RPATH for built files
-            BUILD_WITH_INSTALL_RPATH FALSE
-    )
+    #         # Don't use the installation RPATH for built files
+    #         BUILD_WITH_INSTALL_RPATH FALSE
+    # )
 
     if (APPLE)
         set_target_properties(
