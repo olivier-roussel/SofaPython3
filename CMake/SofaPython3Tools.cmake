@@ -78,10 +78,11 @@ endfunction()
 #  SOURCES            - (input) list of source files that will be compiled with pybind11 support.
 #  HEADERS            - (input) list of header files that will be installed after the build.
 #  DEPENDS            - (input) set of target the generated target will depends on.
+#  TYPE
 #  QUIET              - (input) if set, not information messages will be printed out.
 function(SP3_add_python_module)
     set(options QUIET)
-    set(oneValueArgs TARGET PACKAGE MODULE DESTINATION PYTHON_VERSION )
+    set(oneValueArgs TARGET PACKAGE MODULE DESTINATION TYPE PYTHON_VERSION )
     set(multiValueArgs SOURCES HEADERS DEPENDS)
 
     cmake_parse_arguments(A "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
@@ -114,7 +115,8 @@ function(SP3_add_python_module)
 
     find_package(pybind11 CONFIG QUIET REQUIRED)
 
-    pybind11_add_module(${A_TARGET} SHARED "${A_SOURCES}")
+    message("***** pybind module ${A_TARGET} type: ${A_TYPE}")
+    pybind11_add_module(${A_TARGET} ${A_TYPE} "${A_SOURCES}")
     add_library(SofaPython3::${A_TARGET} ALIAS ${A_TARGET})
 
     set_target_properties(${A_TARGET}

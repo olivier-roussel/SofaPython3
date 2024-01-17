@@ -22,6 +22,7 @@ SP3_add_python_module(
     PACKAGE      Bindings.Sofa
     MODULE       Helper
     DESTINATION  Sofa
+    TYPE         SHARED
     SOURCES      ${SOURCE_FILES}
     HEADERS      ${HEADER_FILES}
     DEPENDS      Sofa.Core SofaPython3::Plugin

@@ -19,6 +19,7 @@ SP3_add_python_module(
         PACKAGE      Bindings.Sofa
         MODULE       Simulation
         DESTINATION  Sofa
+        TYPE         SHARED
         SOURCES      ${SOURCE_FILES}
         HEADERS      ${HEADER_FILES}
         DEPENDS      Sofa.Simulation.Graph SofaPython3::Plugin
