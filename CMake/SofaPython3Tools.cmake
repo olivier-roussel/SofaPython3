@@ -176,13 +176,13 @@ function(SP3_add_python_module)
         "@executable_path/${from_target_to_lib}/../lib"
         )
 
-    # RPATH needed to find dependencies in <SOFA_install_dir>/lib
-    list(APPEND TARGET_DEPENDENCIES_RPATH
-        "$ORIGIN/${from_target_to_lib}/../../../lib"
-        "$$ORIGIN/${from_target_to_lib}/../../../lib"
-        "@loader_path/${from_target_to_lib}/../../../lib"
-        "@executable_path/${from_target_to_lib}/../../../lib"
-        )
+    # # RPATH needed to find dependencies in <SOFA_install_dir>/lib
+    # list(APPEND TARGET_DEPENDENCIES_RPATH
+    #     "$ORIGIN/${from_target_to_lib}/../../../lib"
+    #     "$$ORIGIN/${from_target_to_lib}/../../../lib"
+    #     "@loader_path/${from_target_to_lib}/../../../lib"
+    #     "@executable_path/${from_target_to_lib}/../../../lib"
+    #     )
 
     if (APPLE)
         # In MacOS, the target dependency name is RPATH/site-packages/PackageName, so we need to add
