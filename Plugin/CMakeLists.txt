@@ -41,19 +41,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC Sofa.Simulation.Graph)
 # lead to segv when importing the python module in versions of python that don't
 # have a dynamic link with libpython (such as the one provided by conda), but works
 # fine with versions that have such link.
-message("**************** Begin Plugin SofaPython3 ************************")
-
-get_target_property(PYBIND_EMBED_ALL_LIBS pybind11::embed LINK_LIBRARIES)
-get_target_property(PYBIND_EMBED_INTERFACE_LIBS pybind11::embed INTERFACE_LINK_LIBRARIES)
-
-message("**************** PYBIND_EMBED_ALL_LIBS=${PYBIND_EMBED_ALL_LIBS}")
-message("**************** PYBIND_EMBED_INTERFACE_LIBS=${PYBIND_EMBED_INTERFACE_LIBS}")
-
-get_target_property(PYBIND_PYTHON_LIBS_ALL_LIBS pybind11::_ClassicPythonLibraries LINK_LIBRARIES)
-get_target_property(PYBIND_PYTHON_INTERFACE_LIBS pybind11::_ClassicPythonLibraries INTERFACE_LINK_LIBRARIES)
-
-message("**************** PYBIND_PYTHON_LIBS_ALL_LIBS=${PYBIND_PYTHON_LIBS_ALL_LIBS}")
-message("**************** PYBIND_PYTHON_INTERFACE_LIBS=${PYBIND_PYTHON_INTERFACE_LIBS}")
 
 if(CMAKE_SYSTEM_NAME STREQUAL Darwin)
   target_link_libraries(${PROJECT_NAME} PRIVATE pybind11::embed)
