@@ -14,16 +14,16 @@ if(UNIX)
     #     "$ORIGIN/../lib"
     #     "$$ORIGIN/../lib"
     # )
-    if(APPLE)
-        set(CMAKE_MACOSX_RPATH ON)
-        # list(APPEND CMAKE_INSTALL_RPATH
-        #     "@loader_path"
-        #     "@executable_path"
-        #     "@loader_path/../lib"
-        #     "@executable_path/../lib"
-        # )
-        set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-    endif()
+    # if(APPLE)
+    #     set(CMAKE_MACOSX_RPATH ON)
+    #     # list(APPEND CMAKE_INSTALL_RPATH
+    #     #     "@loader_path"
+    #     #     "@executable_path"
+    #     #     "@loader_path/../lib"
+    #     #     "@executable_path/../lib"
+    #     # )
+    #     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+    # endif()
 endif()
 
 foreach(bindings_module ${BINDINGS_MODULE_LIST})
