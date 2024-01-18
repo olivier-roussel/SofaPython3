@@ -133,10 +133,10 @@ message(STATUS "pybind11:
 # And now one combination of  LC_RPATH/LC_LOAD_DYLIB will be valid.
 # This should't change anything for those that use other python libs than XCode (homebrew for example) since the
 # LC_LOAD_DYLIB from XCode is quite unique.
-if (APPLE)
-    set(CMAKE_INSTALL_RPATH "/Applications/Xcode.app/Contents/Developer/Library/Frameworks")
-    set(CMAKE_BUILD_RPATH "/Applications/Xcode.app/Contents/Developer/Library/Frameworks")
-endif()
+# if (APPLE)
+#     set(CMAKE_INSTALL_RPATH "/Applications/Xcode.app/Contents/Developer/Library/Frameworks")
+#     set(CMAKE_BUILD_RPATH "/Applications/Xcode.app/Contents/Developer/Library/Frameworks")
+# endif()
 
 if (NOT SP3_COMPILED_AS_SUBPROJECT)
     get_filename_component(SOFA_ROOT_DIR "${SofaFramework_DIR}/../../.." ABSOLUTE)
