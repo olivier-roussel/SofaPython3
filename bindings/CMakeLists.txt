@@ -1,7 +1,7 @@
 project(Bindings)
 
 # set(BINDINGS_MODULE_LIST Sofa SofaRuntime SofaGui SofaTypes Modules)
-set(BINDINGS_MODULE_LIST Sofa SofaRuntime)
+set(BINDINGS_MODULE_LIST Sofa SofaRuntime SofaTypes)
 # if(SP3_WITH_SOFAEXPORTER)
     # list(APPEND BINDINGS_MODULE_LIST SofaExporter)
 # endif()
