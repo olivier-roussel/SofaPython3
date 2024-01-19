@@ -23,7 +23,7 @@ SP3_add_python_module(
         TARGET       ${PROJECT_NAME}
         MODULE       SofaRuntime
         DESTINATION  SofaRuntime
-        TYPE         MODULE
+        TYPE         SHARED
         SOURCES      ${SOURCE_FILES}
         HEADERS      ${HEADER_FILES}
         DEPENDS      Sofa.Simulation.Graph SofaPython3::Plugin SofaPython3::Bindings.Sofa.Core
