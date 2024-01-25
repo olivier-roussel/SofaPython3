@@ -43,6 +43,7 @@ SOFAPYTHON3_API bool moduleIsInitialized();
 
 void initExternalModule()
 {
+    std::cout << "======== SofaPython3 plugin: initExternalModule" << std::endl;
     static bool first = true;
     if (first)
     {
